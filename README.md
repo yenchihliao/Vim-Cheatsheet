@@ -148,6 +148,9 @@ Advanced or above
 * `Ctrl+i`: redo jumppings
 * `Ctrl+]`: jump to definition(REQUIRE A TAG FILE)
 * `Ctrl+t`: reverse previous jump-to-definition behavior(REQUIRE A TAG FILE)
+* `g]`    : similar to `Ctrl+]` but choose from list of options
+* `:tn`   : jump to the next tag in the list 
+* `:tp`   : jump to the previous tag in the list
 ##### register
 * macro
 	* `qa<commands>q` : record actions in the register a

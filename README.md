@@ -2,13 +2,28 @@
 # cfg
 
 ## vim
+* [motion](#motion)
+* [change](#change)
+* [command](#command)
+* [insert](#insert)
+* [undo](#undo)
+* [others](#others)
+	* [scroll](#scroll)
+	* [mark](#mark)
+	* [jump](#jump)
+	* [register](#register)
+	* [window](#window)
+	* [buffer](#buffer)
+	* [fold](#fold)
+	* [visual-block](#visual-block)
 
-### instructions
+* [ref](#ref)
+* [vimdiff](#vimdiff)
 
-#### motion:
-##### ------------newbies-------------
-* ← → ↑ ↓ 
-##### ----------intermediate----------
+### motion:
+#### ------------newbies-------------
+* ← → ↑ ↓
+#### ----------intermediate----------
 * `b`/`B`: go to the start of the previous word/Word
 * `w`/`W`: go to the start of the following word/Word
 * `0`/`g0`: go to the first column of the line/current window
@@ -16,7 +31,7 @@
 * `^`  : go to the first non-blank char of line
 * `gg`/`G`: **jump** to the begin/end of the file
 * `<Number>G`/`<Number>gg` : **jump** to nth line
-##### ------------advanced------------
+#### ------------advanced------------
 * `h`/`j`/`k`/`l`: ←/↓/↑/→
 * `e`/`E`: go to the end of this word/Word
 * `gE` : go to the end of the previous word
@@ -33,20 +48,20 @@
 * `L`  : **jump** to Low position(place the cursor at the bottom of screen)
 * `''` : **jump** back(to the cursor position before jumping)
 * combine `<num><motion>`: Repeat [motion](#motion) num of times.
-##### -------------nerds--------------
+#### -------------nerds--------------
 * `'<mark>`: **jump** to mark(See below)
 * `g_` : go to the last non-blank char of line
 
-#### change:
+### change:
 **normal** mode options
-##### ------------newbies-------------
+#### ------------newbies-------------
 * `i`: **insert** mode under cursor
 * `<ECS>`/`Ctrl+[`: back to **normal** mode
 * *`yy`/`Y`: yank(copy) a line with/without last \r
 * *`dd`/`D`: delete(cut) a line with/without last \r
 * *`cc`/`C`: change(cut and enter **insert mode**) a line
 * `p`/`P`: paste yanked or cut things under/before cursor
-##### ----------intermediate----------
+#### ----------intermediate----------
 * `x`/`X`: cut the char under/after cursor
 * `s`/`S`: cut the char under/after cursor and enter **insert** mode
 * `r`  : replace the char under cursor
@@ -57,13 +72,15 @@
 * *`<<`  : add a indent to current line
 * *`>>`  : remove a indent from current line
 * `v`: enter **visual**(select) mode to select part of code, then use `y` to yank(copy) the selected code
-##### ------------advanced------------
+#### ------------advanced------------
 * `J`  : join lines together
 * *`gUU`: make the line uppercase
 * *`guu`: make the line lowercase
+* *`g~~` : switch case of the line
+* *`~` : switch case of the letter on cursor
 * **Dark Magic**:
 	* combine `<num><change>`: Repeat [change](#change) num of times.
-	* combine `<change><adjective><position>`: For reduplicated [change](#change) marked with \*(i.g. `y`, `>`, `gU`, etc.), apply [change](#change) from cursor to position.
+	* combine `<change><adjective><position>`: For reduplicated [change](#change) marked with \*(i.g. `y`, `>`, `gU`, `g~` etc.), apply [change](#change) from cursor to position.
 		* \<adjective>(optional): `i`: in, `a`: all, \<num>: repeat
 		* \<position>: [motion](#motion) or \<num>\<motion> or {, [, (, ), ], }
 	* examples:
@@ -71,24 +88,24 @@
 		- `diw`: delete in word(the word touched by cursor)
 		- `ca)`: change(delete and enter insert mode) things within \( and \)(included)
 		- `2d3w`: delete 3 word twice
-#### command:
+### command:
 press \<enter> after typing
-##### ------------newbies-------------
+#### ------------newbies-------------
 * `:w`: write(save) the file
 * `:q`: quit
 * `:x`: save and quit(=`:wq`)
-##### ----------intermediate----------
+#### ----------intermediate----------
 * `:w <fileName>`: write(save) the file to fileName
 * `ZZ` : save and quit
 * `ZQ` : quit without saving
-##### ------------advanced------------
+#### ------------advanced------------
 * `.`  : repeat the last modification to the file
 * `/<pattern>` : search pattern
 * `//` : repeat last `/<pattern>`
 * `:Ctrl+n`/`:Ctrl+p`: to select next/previous command
 * `/Ctrl+n`/`/Ctrl+p`: to select next/previous search
 * `:%s/<pattern A>/<pattern B>/g` : substitude all the pattern A in file by pattern B
-##### -------------nerds--------------
+#### -------------nerds--------------
 * `:!<command>` : execute command in shell
 * `:!!` : repeat last `!<command>`
 * `/<pattern>/<offset>` : search pattern and place cursor on offset
@@ -111,14 +128,14 @@ press \<enter> after typing
 		* `&` : `<pattern A>`
 		* `~` : previos `<pattern B>`
 		* `\<num>` : pattern within ()
-##### ------------backups-------------
+#### ------------backups-------------
 * `:saveas <path/to/file>` : save to `<path/to/file>`
 * `<start position><command><end position>`
-#### Insert:
+### Insert:
 **insert** mode options
-##### ----------intermediate----------
+#### ----------intermediate----------
 * `Ctrl+n`/`Ctrl+p` : select next/previous option in autocomplete or trigger default autocomplete behavior
-##### ------------advanced------------
+#### ------------advanced------------
 * `Ctrl+x Ctrl+f`	: autocomplete for file path
 * `Ctrl+x Ctrl+]`	: autocomplete for tags(REQUIRE A TAG FILE)
 * `Ctrl+x Ctrl+i`	: autocomplete from this and included files
@@ -126,32 +143,41 @@ press \<enter> after typing
 * `Ctrl+d`			: remove a indent of current line
 * `Ctrl+w`			: delete word before cursor
 * `Ctrl+u`			: delete line before cursor
-##### -------------nerds--------------
+#### -------------nerds--------------
 * `Ctrl+g j`		: equivalent to `<ESC>ji`
 * `Ctrl+g k`		: equivalent to `<ESC>ki`
 * `Ctrl+o <command(**normal mode**)>`: equivalent to `<ESC><command>i`
 * `Ctrl-r <register>`: insert from \<register>
 * `Ctrl-a`: insert last text(equivalent to `^r.`)
 * `Ctrl-@`: insert last text and leave insert mode(equivalent to `^a<esc>`)
-#### Others:
+### Undo:
+undo changes in **normal** mode
+#### ------------newbies-------------
+`u`: undo one change
+`Ctrl-r`: redo
+#### ------------advanced------------
+`U`: undo the line on the cursor(This also count as a change. Hence, use `u` to redo `U`)
+#### -------------nerds--------------
+`g+`/`g-`: change the current text to the next/previous text in undo tree
+### Others:
 Advanced or above
-##### scroll
+#### scroll
 * `zz`/`z.`: scroll the screen so that the cursor is in the middle of the screen
 * `Ctrl+d` : scroll half the screen down
 * `Ctrl+u` : scroll half the screen up
 * `zt`/`zb`: scroll the screen so that the cursor is in the top/bottom of the screen
-##### mark
+#### mark
 * `'"` : jump to the cursor position last exiting
 * `m<letter>`: mark the line with letter
-##### jump
+#### jump
 * `Ctrl+o`: undo jumppings
 * `Ctrl+i`: redo jumppings
 * `Ctrl+]`: jump to definition(REQUIRE A TAG FILE)
 * `Ctrl+t`: reverse previous jump-to-definition behavior(REQUIRE A TAG FILE)
 * `g]`    : similar to `Ctrl+]` but choose from list of options
-* `:tn`   : jump to the next tag in the list 
+* `:tn`   : jump to the next tag in the list
 * `:tp`   : jump to the previous tag in the list
-##### register
+#### register
 * macro
 	* `qa<commands>q` : record actions in the register a
 	* `@a` : replay the saved actions once (same as `@@`)
@@ -166,7 +192,7 @@ Advanced or above
 * others:
 	* `"ayy`(yank(copy) the current line and store it to register a)
 	* `"ap`(paste register a)
-##### window
+#### window
 * `:new`/`:vnew`: new empty window
 * `:sp <fileName>`/`:vsp <fileName>`: new window for fileName
 * `Ctrl-w w` : switch to the other buffer
@@ -177,20 +203,26 @@ Advanced or above
 * `Ctrl-w |` : maximize window in splitted vertically
 * `Ctrl-w _` : maximize window in splitted horizontally
 * `Ctrl-w =` : distribute space equally for opened windows
-##### fold:
+#### buffer
+* `:e <fileName>`: to add \<fileName\> into buffer
+* `:ls`: see all the buffers
+* `:bu<num>`/`<num> Ctrl-^`: jump to \<num\> of buffer
+* `:bu#`/`# Ctrl-^`: jump to previous buffer
+#### fold
 * `zf`: create a fold
 * `zo`: fold open
 * `zc`: fold close
 * `zd`: fold delete
 * `zR`: open all
 * `zM`: close all
-##### Visual block: Edit multiple lines at the same time
+#### Visual block
+Edit multiple lines at the same time
 * step1: press `Ctrl+v`
 * step2: select multiple lines as if in visual mode
 * step3: edit ONLY the first line
 * step4: press `<ecs>`
 * step5: be amazed
-#### ref
+### ref
 * vim :help motion, insert, scroll, change, fold, reg, mark, ctrl-v, windows, i\_ctrl-n, etc.
 * [vim tips](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
 * [Learn Vim Progressively](http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/)

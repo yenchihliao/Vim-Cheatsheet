@@ -147,20 +147,22 @@ press \<enter> after typing
 * `Ctrl+g j`		: equivalent to `<ESC>ji`
 * `Ctrl+g k`		: equivalent to `<ESC>ki`
 * `Ctrl+o <command(**normal mode**)>`: equivalent to `<ESC><command>i`
-* `Ctrl-r <register>`: insert from \<register>
-* `Ctrl-a`: insert last text(equivalent to `^r.`)
-* `Ctrl-@`: insert last text and leave insert mode(equivalent to `^a<esc>`)
+* `Ctrl+v` : insert the hidden character such as <ESC>, <CR>, etc.
+* `Ctrl+r <register>`: insert from \<register>
+* `Ctrl+a`: insert last text(equivalent to `^r.`)
+* `Ctrl+@`: insert last text and leave insert mode(equivalent to `^a<esc>`)
 ### Undo:
 undo changes in **normal** mode
 #### ------------newbies-------------
 `u`: undo one change
-`Ctrl-r`: redo
+`Ctrl+r`: redo
 #### ------------advanced------------
 `U`: undo the line on the cursor(This also count as a change. Hence, use `u` to redo `U`)
 #### -------------nerds--------------
 `g+`/`g-`: change the current text to the next/previous text in undo tree
 ### Others:
 Advanced or above
+* `ctrl+g` : show the content of normal status line
 #### scroll
 * `zz`/`z.`: scroll the screen so that the cursor is in the middle of the screen
 * `Ctrl+d` : scroll half the screen down
@@ -195,14 +197,14 @@ Advanced or above
 #### window
 * `:new`/`:vnew`: new empty window
 * `:sp <fileName>`/`:vsp <fileName>`: new window for fileName
-* `Ctrl-w w` : switch to the other buffer
-* `Ctrl-w k` : move the current window to top
-* `Ctrl-w h` : move the current window to left
-* `Ctrl-w j` : move the current window to bottom
-* `Ctrl-w l` : move the current window to right
-* `Ctrl-w |` : maximize window in splitted vertically
-* `Ctrl-w _` : maximize window in splitted horizontally
-* `Ctrl-w =` : distribute space equally for opened windows
+* `Ctrl+w w` : switch to the other buffer
+* `Ctrl+w k` : move the current window to top
+* `Ctrl+w h` : move the current window to left
+* `Ctrl+w j` : move the current window to bottom
+* `Ctrl+w l` : move the current window to right
+* `Ctrl+w |` : maximize window in splitted vertically
+* `Ctrl+w _` : maximize window in splitted horizontally
+* `Ctrl+w =` : distribute space equally for opened windows
 #### buffer
 * `:e <fileName>`: to add \<fileName\> into buffer
 * `:ls`: see all the buffers
